@@ -104,6 +104,11 @@ Este projeto foi desenvolvido como exercício de programação orientada a objet
 ![Diagrama de Classes](diagrama.png)
 ---
 
+## 🗂️ Fluxograma visual
+
+![Fluxograma visual](fluxograma.png)
+---
+
 ## 👨‍🏫 Justificativa Didática
 
 Este projeto foi desenvolvido para a disciplina Programação de Soluções Computacionais, cobrindo integralmente os tópicos fundamentais de orientação a objetos.
