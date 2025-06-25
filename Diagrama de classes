@@ -1,0 +1,112 @@
+@startuml
+
+skinparam linetype ortho
+skinparam nodesep 80
+skinparam ranksep 50
+
+
+abstract class Pessoa {
+  # nome : String
+  # email : String
+  + {abstract} apresentarDados() : String
+}
+
+class Leiloeiro extends Pessoa {
+  - numeroRegistro : String
+  + leiloesCriados : ArrayList<Leilao>
+  + apresentarDados() : String
+}
+
+class Licitante extends Pessoa {
+  - endereco : String
+  - lancesFeitos: ArrayList<Lance>
+  + apresentarDados() : String
+}
+
+
+interface Notificavel {
+  + enviarNotificacao(mensagem : String) : void
+}
+
+interface Leiloavel {
+  + obterDescricao() : String
+  + obterValorMinimo() : double
+}
+
+Licitante ..|> Notificavel
+Leiloeiro ..|> Notificavel
+
+
+class Catalogo {
+  + ultimaAtualizacao : LocalDateTime
+  + itensDisponiveis : ArrayList<Leiloavel>
+  + adicionarItem(item : Leiloavel)
+  + listarItens()
+}
+
+class Leilao {
+  - titulo : String
+  - dataInicio : LocalDateTime
+  - status : String
+  + itensDoLeilao : ArrayList<Leiloavel>
+  + licitantesInscritos : ArrayList<Licitante>
+}
+
+class ItemLeilao implements Leiloavel {
+  - nome : String
+  - descricao : String
+  - valorInicial : double
+  + lancesRecebidos: ArrayList<Lance>
+  + obterDescricao() : String
+  + obterValorMinimo() : double
+}
+
+class Lote implements Leiloavel {
+  - nomeLote : String
+  - descricao : String
+  + itensNoLote : ArrayList<ItemLeilao>
+  + obterDescricao() : String
+  + obterValorMinimo() : double
+}
+
+class Lance {
+  - valor : double
+  - dataHoraLance : LocalDateTime
+}
+
+class Arremate {
+  - valorFinal : double
+  - dataArremate : LocalDateTime
+}
+
+
+class Main {
+  + main()
+  + exibirMenu()
+  + gerenciarPessoas()
+  + gerenciarCatalogo()
+  + gerenciarLeiloes()
+  + realizarLance()
+  + processarArremates()
+}
+
+
+Leiloeiro "1" -- "0..*" Leilao 
+Leilao "1" o-- "0..*" Licitante
+Leilao "1" o-- "1..*" Leiloavel 
+
+Lote "1" o-- "2..*" ItemLeilao
+
+Licitante "1" -- "0..*" Lance
+Lance "1" -- "1" Leiloavel
+
+Arremate "1" -- "1" Licitante 
+Arremate "1" -- "1" Leiloavel 
+
+Main "1" o-- "1" Catalogo 
+Catalogo "1" o-- "0..*" Leiloavel
+
+Main ..> Pessoa
+Main ..> Leilao
+
+@enduml
