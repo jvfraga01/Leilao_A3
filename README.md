@@ -45,9 +45,6 @@ Este projeto foi desenvolvido como exercício de programação orientada a objet
 - **Relatórios:**
   - Visualização de um relatório completo com todos os arremates realizados.
 
-- **Interface Melhorada:**
-  - Caixas de diálogo de confirmação com botões em português ("Sim/Não") para melhor usabilidade.
-
 ---
 
 ## 🧩 Estrutura e Requisitos Atendidos
